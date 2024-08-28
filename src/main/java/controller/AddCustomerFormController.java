@@ -1,4 +1,6 @@
 package controller;
+
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
@@ -14,12 +16,16 @@ import thogakadePOS.DBConnection;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.*;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class AddCustomerFormController implements Initializable {
 
     @FXML
-    private JFXComboBox<String> cmbTitle;
+    private JFXButton btnSign;
+
+    @FXML
+    private JFXComboBox<?> cmbTitle;
 
     @FXML
     private DatePicker dateDob;
@@ -28,7 +34,7 @@ public class AddCustomerFormController implements Initializable {
     private JFXTextField txtAddress;
 
     @FXML
-    private JFXTextField txtContact;
+    private JFXTextField txtCity;
 
     @FXML
     private JFXTextField txtId;
@@ -36,9 +42,18 @@ public class AddCustomerFormController implements Initializable {
     @FXML
     private JFXTextField txtName;
 
+    @FXML
+    private JFXTextField txtPostalCode;
+
+    @FXML
+    private JFXTextField txtProvince;
+
+    @FXML
+    private JFXTextField txtSalary;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ObservableList<String> titles=FXCollections.observableArrayList();
+        ObservableList<String> titles = FXCollections.observableArrayList();
 
         titles.add("Mr");
         titles.add("Mrs");
@@ -51,23 +66,30 @@ public class AddCustomerFormController implements Initializable {
     void btnSignIn(ActionEvent ignoredEvent) {
         if(validateInputs()){
             List<Customer> customersList = DBConnection.getInstance().getConnection();
-            customersList.add(
-                    new Customer(
-                            txtId.getText(),
-                            cmbTitle.getValue(),
-                            txtName.getText(),
-                            txtAddress.getText(),
-                            txtContact.getText(),
-                            dateDob.getValue()
-                    ));
+//            customersList.add(
+//                    new Customer(
+//                            txtId.getText(),
+//                            cmbTitle.getValue(),
+//                            txtName.getText(),
+//                            txtAddress.getText(),
+//                            txtContact.getText(),
+//                            dateDob.getValue()
+//                    ));
             showAlert("Success", "Customer added successfully.");
             clearFields();
         }
     }
 
     private boolean validateInputs() {
-        if (txtId.getText().isEmpty() || cmbTitle.getValue() == null || txtName.getText().isEmpty() ||
-                txtAddress.getText().isEmpty() || txtContact.getText().isEmpty() || dateDob.getValue() == null) {
+        if (txtId.getText().isEmpty() ||
+                cmbTitle.getValue() == null ||
+                txtName.getText().isEmpty() ||
+                txtAddress.getText().isEmpty() ||
+                txtCity.getText().isEmpty() ||
+                txtPostalCode.getText().isEmpty() ||
+                txtProvince.getText().isEmpty()  ||
+                txtSalary.getText().isEmpty()  ||
+                dateDob.getValue() == null) {
             showAlert("Error", "All fields are required.");
             return false;
         }
@@ -77,10 +99,10 @@ public class AddCustomerFormController implements Initializable {
             return false;
         }
 
-        if (!txtContact.getText().matches("\\d{10}")) {
-            showAlert("Phone Number Error", "Phone number should be exactly 10 digits.");
-            return false;
-        }
+//        if (!txtContact.getText().matches("\\d{10}")) {
+//            showAlert("Phone Number Error", "Phone number should be exactly 10 digits.");
+//            return false;
+//        }
 
         if (txtAddress.getText().length() < 5) {
             showAlert("Address Error", "Address should be at least 5 characters long.");
@@ -108,9 +130,13 @@ public class AddCustomerFormController implements Initializable {
         txtId.clear();
         cmbTitle.setValue(null);
         txtName.clear();
+        txtSalary.clear();
+        txtPostalCode.clear();
+        txtProvince.clear();
         txtAddress.clear();
-        txtContact.clear();
+        txtCity.clear();
         dateDob.setValue(null);
+
     }
 
     private void showAlert(String title, String content) {
