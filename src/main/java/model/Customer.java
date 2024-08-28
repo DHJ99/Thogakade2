@@ -6,21 +6,30 @@ import lombok.ToString;
 
 import java.time.LocalDate;
 
+
 @Data
 @NoArgsConstructor
 @ToString
 public class Customer {
     private String id;
-    private String name;
+    private String  title;
+    private String  name;
     private String address;
-    private String contact;
     private LocalDate dob;
+    private Double salary;
+    private String city;
+    private String province;
+    private String postalCode;
 
-    public Customer(String id, String title, String name, String address, String contact, LocalDate dob) {
+    public Customer(String id, String title, String name, String address, LocalDate dob, Double salary, String city, String province, String postalCode) {
         this.id = id;
-        this.name = title+"."+name;
+        this.title = title;
+        this.name = title+". "+name;
         this.address = address;
-        this.contact = contact;
         this.dob = dob;
+        this.salary = salary;
+        this.city = city;
+        this.province = province;
+        this.postalCode = postalCode;
     }
 }
