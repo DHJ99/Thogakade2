@@ -11,7 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import model.Customer;
-import thogakadePOS.DBConnection;
+import db.DBConnection;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 public class AddCustomerFormController implements Initializable {
 
     @FXML
-    private JFXButton btnSign;
+    private JFXButton btnSignIn;
 
     @FXML
     private JFXComboBox<String> cmbTitle;
@@ -58,7 +58,7 @@ public class AddCustomerFormController implements Initializable {
     }
 
     @FXML
-    void btnSign(ActionEvent ignoredEvent) {
+    public void btnSignIn(ActionEvent ignoredEvent) {
         if(validateInputs()){
             List<Customer> customersList = DBConnection.getInstance().getConnection();
 
@@ -133,4 +133,5 @@ public class AddCustomerFormController implements Initializable {
         alert.setContentText(content);
         alert.showAndWait();
     }
+
 }

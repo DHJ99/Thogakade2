@@ -15,7 +15,7 @@
       <JFXTextField fx:id="txtId" layoutX="96.0" layoutY="178.0" opacity="0.68" prefHeight="25.0" prefWidth="155.0" promptText="Customer ID " />
       <JFXTextField fx:id="txtName" layoutX="96.0" layoutY="256.0" opacity="0.68" prefHeight="25.0" prefWidth="155.0" promptText="Customer Name" />
       <JFXTextField fx:id="txtAddress" layoutX="96.0" layoutY="377.0" opacity="0.68" prefHeight="25.0" prefWidth="155.0" promptText="Customer Address" />
-      <JFXTextField fx:id="txtSalary" layoutX="97.0" layoutY="335.0" opacity="0.68" prefHeight="25.0" prefWidth="155.0" promptText="Contact Number " text="Salary" />
+      <JFXTextField fx:id="txtSalary" layoutX="97.0" layoutY="335.0" opacity="0.68" prefHeight="25.0" prefWidth="155.0" promptText="Salary" />
       <JFXComboBox fx:id="cmbTitle" layoutX="96.0" layoutY="218.0" opacity="0.68" prefHeight="25.0" prefWidth="155.0" promptText="Title" unFocusColor="#4d4d4d" />
       <JFXButton fx:id="btnSign" layoutX="117.0" layoutY="595.0" onAction="#btnSignIn" prefHeight="25.0" prefWidth="93.0" style="-fx-background-color: black;" text="JOIN US" textAlignment="CENTER" textFill="#fcf7f7">
          <font>
@@ -48,8 +48,8 @@
             <Font name="Pristina" size="14.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="txtCity" layoutX="97.0" layoutY="422.0" opacity="0.68" prefHeight="25.0" prefWidth="155.0" promptText="Customer Address" text="City" />
-      <JFXTextField fx:id="txtProvince" layoutX="97.0" layoutY="461.0" opacity="0.68" prefHeight="25.0" prefWidth="155.0" promptText="Customer Address" text="Province" />
-      <JFXTextField fx:id="txtPostalCode" layoutX="97.0" layoutY="499.0" opacity="0.68" prefHeight="25.0" prefWidth="155.0" promptText="Customer Address" text="Postal Code" />
+      <JFXTextField fx:id="txtCity" layoutX="97.0" layoutY="422.0" opacity="0.68" prefHeight="25.0" prefWidth="155.0" promptText="City" />
+      <JFXTextField fx:id="txtProvince" layoutX="97.0" layoutY="461.0" opacity="0.68" prefHeight="25.0" prefWidth="155.0" promptText="Province" />
+      <JFXTextField fx:id="txtPostalCode" layoutX="97.0" layoutY="499.0" opacity="0.68" prefHeight="25.0" prefWidth="155.0" promptText="Postal Code" />
    </children>
 </AnchorPane>

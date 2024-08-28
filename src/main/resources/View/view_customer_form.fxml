@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #f4ede4;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewCustomerFormController">
+<AnchorPane prefHeight="400.0" prefWidth="767.0" style="-fx-background-color: #f4ede4;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ViewCustomerFormController">
    <children>
       <ImageView fitHeight="121.0" fitWidth="125.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -26,23 +25,26 @@
             <Font name="Pristina" size="22.0" />
          </font>
       </Label>
-      <Label layoutX="224.0" layoutY="17.0" prefHeight="88.0" prefWidth="335.0" text="View Customer Form">
+      <Label layoutX="264.0" layoutY="17.0" prefHeight="88.0" prefWidth="335.0" text="View Customer Form">
          <font>
             <Font name="Haettenschweiler" size="41.0" />
          </font>
       </Label>
-      <JFXButton fx:id="btnReload" buttonType="RAISED" graphicTextGap="0.0" layoutX="253.0" layoutY="343.0" onAction="#btnReload" prefHeight="43.0" prefWidth="95.0" ripplerFill="#b59b9b" text="RELOAD" textOverrun="WORD_ELLIPSIS" underline="true" wrapText="true">
+      <JFXButton fx:id="btnReload" buttonType="RAISED" graphicTextGap="0.0" layoutX="336.0" layoutY="343.0" onAction="#btnReload" prefHeight="43.0" prefWidth="95.0" ripplerFill="#b59b9b" text="RELOAD" textOverrun="WORD_ELLIPSIS" underline="true" wrapText="true">
          <font>
             <Font name="Berlin Sans FB Demi Bold" size="15.0" />
          </font>
       </JFXButton>
-      <TableView fx:id="tblCustomers" layoutX="56.0" layoutY="133.0" prefHeight="200.0" prefWidth="490.0">
+      <TableView fx:id="tblCustomers" layoutX="22.0" layoutY="136.0" prefHeight="200.0" prefWidth="723.0">
         <columns>
-          <TableColumn fx:id="colId" prefWidth="48.0" text=" ID" />
-          <TableColumn fx:id="colName" prefWidth="116.0" text="Name" />
-            <TableColumn fx:id="colAddress" prefWidth="119.0" text="Address" />
-            <TableColumn fx:id="colContact" prefWidth="107.0" text="Contact " />
-            <TableColumn fx:id="colDob" prefWidth="99.0" text="DOB" />
+          <TableColumn fx:id="colId" prefWidth="42.0" text=" ID" />
+          <TableColumn fx:id="colName" prefWidth="111.0" text="Name" />
+            <TableColumn fx:id="colDOB" prefWidth="88.0" text="DOB" />
+            <TableColumn fx:id="colSalary" prefWidth="90.0" text="Salary" />
+            <TableColumn fx:id="colAddress" prefWidth="127.0" text="Address" />
+            <TableColumn fx:id="colCity" prefWidth="88.0" text="City" />
+            <TableColumn fx:id="colProvince" prefWidth="88.0" text="Province" />
+            <TableColumn fx:id="colPostalCode" prefWidth="88.0" text="Postal Code" />
         </columns>
       </TableView>
    </children>

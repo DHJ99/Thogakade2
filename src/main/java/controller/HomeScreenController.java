@@ -8,64 +8,49 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Objects;
 
 public class HomeScreenController {
 
     @FXML
-    public JFXButton btnDelete;
+    private JFXButton btnDelete;
 
     @FXML
-    public JFXButton btnLogin;
+    private JFXButton btnLogin;
 
     @FXML
-    public JFXButton btnUpdate;
+    private JFXButton btnUpdate;
 
     @FXML
-    public JFXButton btnView;
+    private JFXButton btnView;
 
     @FXML
-    void btnLogin(ActionEvent ignoredEvent) {
-        Stage stage=new Stage();
-        try{
-            stage.setScene(new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../view/add_customer_form.fxml")))));
-            stage.show();
-        }catch (IOException e){
-            throw  new RuntimeException(e);
-        }
+    private void btnLogin(ActionEvent event) {
+        openNewStage("../view/add_customer_form.fxml");
     }
 
     @FXML
-    void btnUpdate(ActionEvent ignoredEvent) {
-        Stage stage=new Stage();
-        try{
-            stage.setScene(new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../view/update_customer_form.fxml")))));
-            stage.show();
-        }catch (IOException e){
-            throw  new RuntimeException(e);
-        }
+    private void btnUpdate(ActionEvent event) {
+        openNewStage("../view/update_customer_form.fxml");
     }
 
     @FXML
-    void btnView(ActionEvent ignoredEvent) {
-        Stage stage=new Stage();
-        try{
-            stage.setScene(new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../view/view_customer_form.fxml")))));
-            stage.show();
-        }catch (IOException e){
-            throw  new RuntimeException(e);
-        }
+    private void btnView(ActionEvent event) {
+        openNewStage("../view/view_customer_form.fxml");
     }
 
     @FXML
-    void btnDelete(ActionEvent ignoredEvent) throws RuntimeException {
-        Stage stage=new Stage();
-        try{
-            stage.setScene(new Scene(FXMLLoader.load(Objects.requireNonNull(getClass().getResource
-                    ("../view/delete_customer_form.fxml")))));
+    private void btnDelete(ActionEvent event) {
+        openNewStage("../view/delete_customer_form.fxml");
+    }
+
+    private void openNewStage(String fxmlPath) {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            stage.setScene(new Scene(loader.load()));
             stage.show();
-        }catch (IOException e){
-            throw  new RuntimeException(e);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
