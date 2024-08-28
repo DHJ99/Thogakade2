@@ -14,10 +14,10 @@ import java.util.List;
 public class UpdateCustomerFormController {
 
     @FXML
-    public JFXButton btnSearch;
+    private JFXButton btnSearch;
 
     @FXML
-    public JFXButton btnUpdate;
+    private JFXButton btnUpdate;
 
     @FXML
     private DatePicker dateDob;
@@ -26,7 +26,7 @@ public class UpdateCustomerFormController {
     private JFXTextField txtAddress;
 
     @FXML
-    private JFXTextField txtContact;
+    private JFXTextField txtCity;
 
     @FXML
     private JFXTextField txtId;
@@ -35,68 +35,115 @@ public class UpdateCustomerFormController {
     private JFXTextField txtName;
 
     @FXML
+    private JFXTextField txtPostalCode;
+
+    @FXML
+    private JFXTextField txtProvince;
+
+    @FXML
+    private JFXTextField txtSalary;
+
+    @FXML
     private JFXTextField txtSearchId;
 
-    List<Customer> customersList = DBConnection.getInstance().getConnection();
+    private List<Customer> customersList;
     private Customer selectedCustomer;
+
+    public void initialize() {
+        customersList = DBConnection.getInstance().getCustomers();
+    }
 
     @FXML
     void btnSearch(ActionEvent ignoredEvent) {
+        String searchId = txtSearchId.getText();
+        selectedCustomer = customersList.stream()
+                .filter(customer -> customer.getId().equals(searchId))
+                .findFirst()
+                .orElse(null);
 
-        for(Customer customer : customersList){
-            String searchId=txtSearchId.getText();
-
-            if(customer.getId().equals(searchId)){
-                selectedCustomer = customer;
-
-                txtId.setText(customer.getId());
-                txtName.setText(customer.getName());
-                txtAddress.setText(customer.getAddress());
-                txtContact.setText(customer.getContact());
-                dateDob.setValue(customer.getDob());
-
-                return;
-            }
+        if (selectedCustomer != null) {
+            populateFields(selectedCustomer);
+        } else {
+            showAlert("Error 1", "Customer not found.");
+            clearFields();
         }
-        clearFields();
-        selectedCustomer = null;
     }
 
     @FXML
     void btnUpdate(ActionEvent ignoredEvent) {
         if (selectedCustomer != null) {
-
-            String updatedName = txtName.getText();
-            String updatedAddress = txtAddress.getText();
-            String updatedContact = txtContact.getText();
-
-            selectedCustomer.setName(updatedName);
-            selectedCustomer.setAddress(updatedAddress);
-            selectedCustomer.setContact(updatedContact);
-            selectedCustomer.setDob(dateDob.getValue());
-
-            int index = customersList.indexOf(selectedCustomer);
-            if (index != -1) {
-                customersList.set(index, selectedCustomer);
-                showAlert("Success", "Customer updated successfully.");
-                clearFields();
-
-            } else {
-                showAlert("Error", "Failed to update customer in the list.");
-                clearFields();
+            if (validateInputs()) {
+                updateCustomer();
+                int index = customersList.indexOf(selectedCustomer);
+                if (index != -1) {
+                    customersList.set(index, selectedCustomer);
+                    DBConnection.getInstance().updateCustomer(selectedCustomer);
+                    showAlert("Success", "Customer updated successfully.");
+                    clearFields();
+                } else {
+                    showAlert("Error 2", "Failed to update customer in the list.");
+                }
             }
         } else {
-            showAlert("Error", "No customer selected. Please search for a customer first.");
-            clearFields();
+            showAlert("Error 3", "No customer selected. Please search for a customer first.");
         }
     }
 
+    private void updateCustomer() {
+        selectedCustomer.setName(txtName.getText());
+        selectedCustomer.setAddress(txtAddress.getText());
+        selectedCustomer.setCity(txtCity.getText());
+        selectedCustomer.setProvince(txtProvince.getText());
+        selectedCustomer.setPostalCode(txtPostalCode.getText());
+        selectedCustomer.setSalary(Double.parseDouble(txtSalary.getText()));
+        selectedCustomer.setDob(dateDob.getValue());
+
+    }
+
+    private void populateFields(Customer customer) {
+        txtId.setText(customer.getId());
+        txtName.setText(customer.getName());
+        dateDob.setValue(customer.getDob());
+        txtSalary.setText(String.valueOf(customer.getSalary()));
+        txtAddress.setText(customer.getAddress());
+        txtCity.setText(customer.getCity());
+        txtProvince.setText(customer.getProvince());
+        txtPostalCode.setText(customer.getPostalCode());
+    }
+
+    private boolean validateInputs() {
+        if (txtName.getText().isEmpty() ||
+                txtAddress.getText().isEmpty() ||
+                txtCity.getText().isEmpty() ||
+                txtPostalCode.getText().isEmpty() ||
+                txtProvince.getText().isEmpty() ||
+                txtSalary.getText().isEmpty() ||
+                dateDob.getValue() == null ) {
+            showAlert("Error", "All fields are required.");
+            return false;
+        }
+
+        try {
+            Double.parseDouble(txtSalary.getText());
+        } catch (NumberFormatException e) {
+            showAlert("Error", "Salary must be a valid number.");
+            return false;
+        }
+
+        return true;
+    }
+
     private void clearFields() {
+        txtSearchId.clear();
         txtId.clear();
         txtName.clear();
-        txtAddress.clear();
-        txtContact.clear();
         dateDob.setValue(null);
+        txtSalary.clear();
+        txtAddress.clear();
+        txtCity.clear();
+        txtProvince.clear();
+        txtPostalCode.clear();
+        selectedCustomer = null;
     }
 
     private void showAlert(String title, String content) {

@@ -25,7 +25,7 @@ public class AddCustomerFormController implements Initializable {
     private JFXButton btnSign;
 
     @FXML
-    private JFXComboBox<?> cmbTitle;
+    private JFXComboBox<String> cmbTitle;
 
     @FXML
     private DatePicker dateDob;
@@ -53,28 +53,15 @@ public class AddCustomerFormController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ObservableList<String> titles = FXCollections.observableArrayList();
-
-        titles.add("Mr");
-        titles.add("Mrs");
-        titles.add("Miss");
-
-        cmbTitle.setItems(titles);
+        ObservableList<String> title = FXCollections.observableArrayList("Mr", "Mrs", "Miss");
+        cmbTitle.setItems(title);
     }
 
     @FXML
-    void btnSignIn(ActionEvent ignoredEvent) {
+    void btnSign(ActionEvent ignoredEvent) {
         if(validateInputs()){
             List<Customer> customersList = DBConnection.getInstance().getConnection();
-//            customersList.add(
-//                    new Customer(
-//                            txtId.getText(),
-//                            cmbTitle.getValue(),
-//                            txtName.getText(),
-//                            txtAddress.getText(),
-//                            txtContact.getText(),
-//                            dateDob.getValue()
-//                    ));
+
             showAlert("Success", "Customer added successfully.");
             clearFields();
         }
@@ -99,11 +86,6 @@ public class AddCustomerFormController implements Initializable {
             return false;
         }
 
-//        if (!txtContact.getText().matches("\\d{10}")) {
-//            showAlert("Phone Number Error", "Phone number should be exactly 10 digits.");
-//            return false;
-//        }
-
         if (txtAddress.getText().length() < 5) {
             showAlert("Address Error", "Address should be at least 5 characters long.");
             return false;
@@ -111,6 +93,13 @@ public class AddCustomerFormController implements Initializable {
 
         if (!isOver18(dateDob.getValue())) {
             showAlert("Birthday Error", "Customer must be at least 18 years old.");
+            return false;
+        }
+
+        try {
+            Double.parseDouble(txtSalary.getText());
+        } catch (NumberFormatException e) {
+            showAlert("Salary Error", "Salary must be a valid number.");
             return false;
         }
 
@@ -128,15 +117,13 @@ public class AddCustomerFormController implements Initializable {
 
     private void clearFields() {
         txtId.clear();
-        cmbTitle.setValue(null);
         txtName.clear();
+        dateDob.setValue(null);
         txtSalary.clear();
-        txtPostalCode.clear();
-        txtProvince.clear();
         txtAddress.clear();
         txtCity.clear();
-        dateDob.setValue(null);
-
+        txtProvince.clear();
+        txtPostalCode.clear();
     }
 
     private void showAlert(String title, String content) {

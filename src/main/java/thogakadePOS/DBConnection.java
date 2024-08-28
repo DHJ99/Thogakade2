@@ -19,4 +19,11 @@ public class DBConnection {
     public static DBConnection getInstance (){
         return null==instance?instance = new DBConnection():instance;
     }
+
+    public List<Customer> getCustomers() {
+    }
+
+    public void updateCustomer(Customer selectedCustomer) {
+
+    }
 }

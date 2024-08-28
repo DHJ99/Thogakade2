@@ -26,13 +26,22 @@ public class DeleteCustomerFormController {
     private JFXTextField txtAddress;
 
     @FXML
-    private JFXTextField txtContact;
+    private JFXTextField txtCity;
 
     @FXML
     private JFXTextField txtId;
 
     @FXML
     private JFXTextField txtName;
+
+    @FXML
+    private JFXTextField txtPostalCode;
+
+    @FXML
+    private JFXTextField txtProvince;
+
+    @FXML
+    private JFXTextField txtSalary;
 
     @FXML
     private JFXTextField txtSearchId;
@@ -51,9 +60,12 @@ public class DeleteCustomerFormController {
 
                 txtId.setText(customer.getId());
                 txtName.setText(customer.getName());
-                txtAddress.setText(customer.getAddress());
-                txtContact.setText(customer.getContact());
                 dateDob.setValue(customer.getDob());
+                txtSalary.setText(String.valueOf(customer.getSalary()));
+                txtAddress.setText(customer.getAddress());
+                txtCity.setText(customer.getCity());
+                txtProvince.setText(customer.getProvince());
+                txtPostalCode.setText(customer.getPostalCode());
 
                 return;
             }
@@ -65,9 +77,14 @@ public class DeleteCustomerFormController {
     private void clearFields() {
         txtId.clear();
         txtName.clear();
-        txtAddress.clear();
-        txtContact.clear();
         dateDob.setValue(null);
+        txtSalary.clear();
+        txtAddress.clear();
+        txtCity.clear();
+        txtProvince.clear();
+        txtPostalCode.clear();
+
+
     }
     @FXML
     void btnDelete(ActionEvent event) {
